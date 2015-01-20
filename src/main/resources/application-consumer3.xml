@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<rabbit:connection-factory id="connectionFactory"
+		host="10.10.24.200" port="5673" username="admin" password="admin"/>
+
+	<rabbit:admin connection-factory="connectionFactory" />
+
+	<rabbit:queue name="myQueue_fanout1" />
+	<rabbit:queue name="myQueue_fanout2" />
+	
+	<!-- 广播式交换器 -->
+	<rabbit:fanout-exchange name="myExchange_fanout">
+		<rabbit:bindings>
+			<rabbit:binding queue="myQueue_fanout1"></rabbit:binding>
+			<rabbit:binding queue="myQueue_fanout2"></rabbit:binding>
+		</rabbit:bindings>
+	</rabbit:fanout-exchange>
+
+	<rabbit:listener-container connection-factory="connectionFactory" message-converter="messageConverter">
+		<rabbit:listener ref="consumer" method="recive" queue-names="myQueue_fanout1" />
+		<rabbit:listener ref="consumer" method="recive" queue-names="myQueue_fanout2" />
+		<!-- <rabbit:listener ref="consumer" method="recive3" queue-names="myQueue_fanout2" />
+		<rabbit:listener ref="consumer" method="recive4" queue-names="myQueue_fanout2" /> -->
+	</rabbit:listener-container>
+	
+	<bean id="messageConverter" class="com.mapbar.mq.rabbitmq.common.CommonMessageConverter"></bean>
+	
+	<bean id="consumer" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	
+</beans>

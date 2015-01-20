@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<rabbit:connection-factory id="connectionFactory"
+		host="10.10.24.200" port="5673" username="admin" password="admin"/>
+
+	<rabbit:admin connection-factory="connectionFactory" />
+
+	<rabbit:queue name="myQueue" />
+	<rabbit:queue name="myQueue2" />
+
+	<rabbit:topic-exchange name="myExchange" >
+		<rabbit:bindings>
+			<rabbit:binding queue="myQueue" pattern="#.rabbitmq.#" />
+			<rabbit:binding queue="myQueue2" pattern="#.demo.#" />
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+
+	<rabbit:listener-container connection-factory="connectionFactory" message-converter="messageConverter">
+		<rabbit:listener ref="consumer" method="recive" queue-names="myQueue" />
+		<rabbit:listener ref="consumer" method="recive2" queue-names="myQueue2" />
+	</rabbit:listener-container>
+	
+	<bean id="messageConverter" class="com.mapbar.mq.rabbitmq.common.CommonMessageConverter"></bean>
+	
+	<bean id="consumer" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	
+</beans>
