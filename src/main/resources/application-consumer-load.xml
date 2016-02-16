@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<rabbit:connection-factory id="connectionFactory"
+		host="10.10.24.200" port="5673" username="admin" password="admin"/>
+
+	<rabbit:admin connection-factory="connectionFactory" />
+
+	<rabbit:queue name="myQueue_direct" />
+	<rabbit:queue name="myQueue_direct2" />
+
+	<rabbit:direct-exchange name="myExchange_direct">
+		<rabbit:bindings>
+			<rabbit:binding queue="myQueue_direct" key="rabbitmq.producer.test1"></rabbit:binding>
+			<rabbit:binding queue="myQueue_direct2" key="activemq.producer.test2"></rabbit:binding>
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<rabbit:listener-container connection-factory="connectionFactory" message-converter="messageConverter">
+		<rabbit:listener ref="consumer" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer2" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer2" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer3" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer3" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer4" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer4" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer5" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer5" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer6" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer6" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer7" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer7" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer8" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer8" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer9" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer9" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer10" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer10" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer11" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer11" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer12" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer12" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer13" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer13" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer14" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer14" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer15" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer15" method="recive2" queue-names="myQueue_direct2" />
+		
+		<rabbit:listener ref="consumer16" method="recive" queue-names="myQueue_direct" />
+		<rabbit:listener ref="consumer16" method="recive2" queue-names="myQueue_direct2" />
+	</rabbit:listener-container>
+	
+	<bean id="messageConverter" class="com.mapbar.mq.rabbitmq.common.CommonMessageConverter"></bean>
+	
+	<bean id="consumer" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer2" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer3" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer4" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer5" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer6" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer7" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer8" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer9" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer10" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer11" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer12" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer13" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer14" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer15" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+	<bean id="consumer16" class="com.mapbar.mq.rabbitmq.consumer.Consumer"></bean>
+</beans>

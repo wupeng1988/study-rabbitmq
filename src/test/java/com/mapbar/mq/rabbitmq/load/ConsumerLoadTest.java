@@ -1,9 +1,9 @@
-package com.mapbar.mq.rabbitmq.consumer;
+package com.mapbar.mq.rabbitmq.load;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class ConsumerTest {
+public class ConsumerLoadTest {
 	
 	public static void main(String[] args) {
 		

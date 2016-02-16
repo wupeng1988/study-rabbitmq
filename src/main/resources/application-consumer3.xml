@@ -22,9 +22,9 @@
 
 	<rabbit:listener-container connection-factory="connectionFactory" message-converter="messageConverter">
 		<rabbit:listener ref="consumer" method="recive" queue-names="myQueue_fanout1" />
-		<rabbit:listener ref="consumer" method="recive" queue-names="myQueue_fanout2" />
-		<!-- <rabbit:listener ref="consumer" method="recive3" queue-names="myQueue_fanout2" />
-		<rabbit:listener ref="consumer" method="recive4" queue-names="myQueue_fanout2" /> -->
+		<rabbit:listener ref="consumer" method="recive2" queue-names="myQueue_fanout2" />
+		<rabbit:listener ref="consumer" method="recive3" queue-names="myQueue_fanout1" />
+		<rabbit:listener ref="consumer" method="recive4" queue-names="myQueue_fanout2" />
 	</rabbit:listener-container>
 	
 	<bean id="messageConverter" class="com.mapbar.mq.rabbitmq.common.CommonMessageConverter"></bean>

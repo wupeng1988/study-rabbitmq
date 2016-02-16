@@ -26,8 +26,8 @@ public class ProducerTest extends AbstractJUnit4SpringContextTests{
 			sender.sendMessage(model);
 			model.setId(String.valueOf(rand.nextInt()));
 			sender.sendMessage2(model);
-//			System.out.println("send message ok !");
-//			TimeUnit.MILLISECONDS.sleep(500);
+			System.out.println("send message ok !");
+			TimeUnit.MILLISECONDS.sleep(500);
 		}
 		System.out.println("cost time : " + (System.currentTimeMillis() - start));
 		System.out.println("ok");
